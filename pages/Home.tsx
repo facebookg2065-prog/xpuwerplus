@@ -7,24 +7,24 @@ const Home: React.FC = () => {
   return (
     <div className="animate-fade-in">
       {/* Hero Section */}
-      <section className="relative h-[500px] md:h-[600px] flex items-center overflow-hidden bg-dark">
+      <section className="relative min-h-[500px] flex items-center overflow-hidden bg-dark">
         {/* Content Side */}
-        <div className="container mx-auto px-4 z-20 relative h-full flex items-center">
-            <div className="w-full md:w-1/2 text-right">
+        <div className="container mx-auto px-4 z-20 relative h-full flex items-center py-20 md:py-0">
+            <div className="w-full md:w-1/2 text-center md:text-right">
                 <div className="inline-block px-4 py-1 bg-red-900/30 border border-primary/30 text-primary rounded-full text-sm font-bold mb-6">
                     الخيار التكتيكي الأول
                 </div>
-                <h1 className="text-4xl md:text-6xl font-bold mb-6 text-white leading-tight">
+                <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-white leading-tight">
                     POWER <span className="text-primary">PLUS</span><br/>
-                    <span className="text-2xl md:text-4xl mt-2 block text-gray-200">أقوى متجر إلكتروني للأسلحة ومستلزماتها</span>
+                    <span className="text-2xl md:text-3xl lg:text-4xl mt-2 block text-gray-200">أقوى متجر إلكتروني للأسلحة ومستلزماتها</span>
                 </h1>
-                <p className="text-lg text-gray-400 mb-8 max-w-lg leading-relaxed">
+                <p className="text-lg text-gray-400 mb-8 max-w-lg mx-auto md:mx-0 leading-relaxed">
                     تسوق الآن واحصل على أفضل العروض على الأسلحة النارية، ومعدات الصيد، والإكسسوارات العسكرية بأمان وموثوقية عالية.
                 </p>
-                <div className="flex gap-4">
+                <div className="flex justify-center md:justify-start gap-4">
                     <Link 
                     to="/products" 
-                    className="px-8 py-3 bg-primary hover:bg-red-700 text-white rounded-lg font-bold text-lg transition-all shadow-lg shadow-red-900/20 flex items-center gap-2"
+                    className="px-8 py-3 bg-primary hover:bg-red-700 text-white rounded-lg font-bold text-lg transition-all shadow-lg shadow-red-900/20 flex items-center gap-2 active:scale-95 transform"
                     >
                     تصفح المتجر <ArrowLeft size={20} />
                     </Link>
@@ -34,46 +34,49 @@ const Home: React.FC = () => {
 
         {/* Image Side (Background) */}
         <div className="absolute top-0 left-0 w-full md:w-2/3 h-full z-10 md:mask-image-linear-gradient">
-            <div className="absolute inset-0 bg-gradient-to-r from-dark via-dark/80 to-transparent md:via-dark/20"></div>
+            <div className="absolute inset-0 bg-gradient-to-t md:bg-gradient-to-r from-dark via-dark/80 to-transparent md:via-dark/20"></div>
             <img 
                 src="https://images.unsplash.com/photo-1595590424283-b8f17842773f?auto=format&fit=crop&q=80&w=2070" 
                 alt="Tactical Gear" 
-                className="w-full h-full object-cover opacity-60 md:opacity-100"
+                className="w-full h-full object-cover opacity-50 md:opacity-100"
+                loading="eager"
             />
         </div>
       </section>
 
       {/* Featured Products */}
-      <section className="py-20 bg-surface">
+      <section className="py-16 md:py-20 bg-surface">
         <div className="container mx-auto px-4">
-          <div className="flex justify-between items-end mb-10 border-b border-gray-800 pb-4">
+          <div className="flex flex-col md:flex-row justify-between items-center mb-10 border-b border-gray-800 pb-4 gap-4 text-center md:text-right">
              <div>
                 <h2 className="text-3xl font-bold text-white mb-2">أحدث المنتجات</h2>
                 <p className="text-gray-400">تشكيلة واسعة من أفضل الأسلحة والمعدات</p>
              </div>
-             <Link to="/products" className="text-primary hover:text-white transition-colors flex items-center gap-1 text-sm font-bold">
+             <Link to="/products" className="text-primary hover:text-white transition-colors flex items-center gap-1 text-sm font-bold bg-dark/50 px-4 py-2 rounded-full border border-gray-800">
                 عرض الكل <ArrowLeft size={16} />
              </Link>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+          {/* Responsive Grid: Uses auto-fill for perfect responsiveness */}
+          <div className="grid grid-cols-[repeat(auto-fill,minmax(260px,1fr))] gap-6">
             {MOCK_PRODUCTS.slice(0, 4).map((product) => (
               <div key={product.id} className="group bg-dark rounded-xl overflow-hidden border border-gray-800 hover:border-primary/50 transition-all hover:shadow-xl hover:shadow-red-900/10 flex flex-col">
                 <div className="relative h-56 overflow-hidden">
                   <img 
                     src={product.image} 
                     alt={product.name} 
+                    loading="lazy"
                     className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                   />
                   {product.oldPrice && (
-                     <div className="absolute top-2 left-2 bg-red-600 text-white text-xs font-bold px-2 py-1 rounded">
+                     <div className="absolute top-2 left-2 bg-red-600 text-white text-xs font-bold px-2 py-1 rounded shadow-md">
                         خصم {Math.round(((product.oldPrice - product.price) / product.oldPrice) * 100)}%
                      </div>
                   )}
                 </div>
                 
                 <div className="p-5 flex-grow flex flex-col">
-                  <h3 className="text-lg font-bold text-white mb-1">{product.name}</h3>
+                  <h3 className="text-lg font-bold text-white mb-1 truncate">{product.name}</h3>
                   <p className="text-sm text-gray-500 mb-4">{product.category}</p>
                   
                   <div className="mt-auto">
@@ -85,10 +88,10 @@ const Home: React.FC = () => {
                     </div>
 
                     <div className="grid grid-cols-2 gap-2">
-                        <button className="flex items-center justify-center gap-2 bg-primary hover:bg-red-700 text-white py-2 rounded-md font-medium text-sm transition-colors">
-                            <ShoppingCart size={16} /> إضافة للسلة
+                        <button className="flex items-center justify-center gap-2 bg-primary hover:bg-red-700 text-white py-2.5 rounded-md font-medium text-sm transition-colors active:scale-95">
+                            <ShoppingCart size={16} /> <span className="hidden lg:inline">إضافة</span><span className="lg:hidden">شراء</span>
                         </button>
-                        <Link to={`/product/${product.id}`} className="flex items-center justify-center gap-2 bg-gray-800 hover:bg-gray-700 text-gray-300 hover:text-white py-2 rounded-md font-medium text-sm transition-colors">
+                        <Link to={`/product/${product.id}`} className="flex items-center justify-center gap-2 bg-gray-800 hover:bg-gray-700 text-gray-300 hover:text-white py-2.5 rounded-md font-medium text-sm transition-colors">
                             <Info size={16} /> التفاصيل
                         </Link>
                     </div>
@@ -105,22 +108,22 @@ const Home: React.FC = () => {
          <div className="container mx-auto px-4">
             <h3 className="text-center text-xl font-bold text-white mb-8">وسائل الدفع المتاحة</h3>
             
-            <div className="flex flex-wrap justify-center gap-4 md:gap-8">
+            <div className="flex flex-wrap justify-center gap-4">
                 {/* Cash */}
                 <PaymentMethod icon={<Banknote />} label="الدفع عند الاستلام" color="text-green-500" />
                 
                 {/* Local Banks/Wallets (Simulated with badges) */}
                 <div className="flex items-center gap-2 px-4 py-3 bg-surface border border-gray-800 rounded-lg hover:border-primary/50 transition-colors cursor-default">
                     <span className="font-bold text-blue-400">Kuraimi</span>
-                    <span className="text-xs text-gray-500">كريمي</span>
+                    <span className="text-xs text-gray-500 hidden sm:inline">كريمي</span>
                 </div>
                 <div className="flex items-center gap-2 px-4 py-3 bg-surface border border-gray-800 rounded-lg hover:border-primary/50 transition-colors cursor-default">
                     <span className="font-bold text-orange-400">OneCash</span>
-                    <span className="text-xs text-gray-500">ون كاش</span>
+                    <span className="text-xs text-gray-500 hidden sm:inline">ون كاش</span>
                 </div>
                 <div className="flex items-center gap-2 px-4 py-3 bg-surface border border-gray-800 rounded-lg hover:border-primary/50 transition-colors cursor-default">
                     <span className="font-bold text-purple-400">Wasel</span>
-                    <span className="text-xs text-gray-500">واصل</span>
+                    <span className="text-xs text-gray-500 hidden sm:inline">واصل</span>
                 </div>
 
                 {/* International */}
@@ -138,7 +141,7 @@ const Home: React.FC = () => {
 const PaymentMethod: React.FC<{ icon: React.ReactNode, label: string, color?: string }> = ({ icon, label, color }) => (
     <div className="flex items-center gap-2 px-4 py-3 bg-surface border border-gray-800 rounded-lg hover:border-primary/50 transition-colors cursor-default">
         <span className={color || "text-gray-300"}>{icon}</span>
-        <span className="text-sm font-medium text-gray-300">{label}</span>
+        <span className="text-sm font-medium text-gray-300 whitespace-nowrap">{label}</span>
     </div>
 );
 
