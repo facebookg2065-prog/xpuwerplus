@@ -159,7 +159,7 @@ export const Layout: React.FC = () => {
               <ul className="space-y-3 text-sm text-gray-400 flex flex-col items-center md:items-start">
                 <li className="flex items-center gap-2 py-1">
                   <Phone size={16} className="text-primary"/>
-                  <span dir="ltr">+967 770 000 000</span>
+                  <span dir="ltr">+967 778 301 265</span>
                 </li>
                 <li className="flex items-center gap-2 py-1">
                   <Mail size={16} className="text-primary"/>
